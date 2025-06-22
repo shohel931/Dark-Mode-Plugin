@@ -31,5 +31,10 @@ document.addEventListener('DOMContentLoaded', function(){
 
 
 document.addEventListener('DOMContentLoaded', function() {
-  cont defaultStyle =
-})
+  const defaultStyle = '<?php echo get_option("dmms_dark_mode_style", "light"); ?> ';
+  if (localStorage.getItem('dark-mode') === null) {
+    if (defaultStyle === 'dark') {
+      document.body.classList.add('dark-mode');
+    }
+  }
+});

@@ -45,3 +45,7 @@ body.dark-mode{
   bottom: auto;
 }
 
+.dmms-toggle-button i {
+  font-size: 18px;
+}
+
