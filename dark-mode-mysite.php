@@ -98,22 +98,26 @@ function dmms_register_settings(){
     register_setting('dmms_settings_group', 'dmms_toggle_button');
     register_setting('dmms_settings_group', 'dmms_dark_mode_style');
     register_setting('dmms_settings_group', 'dmms_switch_style');
+    register_setting('dmms_settings_group', 'dmms_button_position');
 
     
     add_settings_section('dmms_main_section', 'Main Settings', null, 'dmms_settings');
 
+    // Enable Dark Mode
     add_settings_field('dmms_enable',' Enable Dark Mode', function(){
        $checked = get_option('dmms_enable');
        echo '<input type="checkbox" name="dmms_enable" value="1"' . checked(1, $checked, false) . '> Enable';
 
     }, 'dmms_settings', 'dmms_main_section');
 
+    // Button Hide Show
     add_settings_field('dmms_toggle_button', 'Show Toggle Button', function() {
         $checked = get_option('dmms_toggle_button');
         echo '<input type="checkbox" name="dmms_toggle_button" value="1"' . checked(1, $checked, false) . '> Show';
 
     }, 'dmms_settings', 'dmms_main_section');
 
+    // Dark / Light Mode
     add_settings_field('dmms_dark_mode_style', 'Default Style', function(){
         $value = get_option('dmms_dark_mode_style', 'light');
         echo '<select name="dmms_dark_mode_style">
@@ -122,10 +126,29 @@ function dmms_register_settings(){
         </select>';
     }, 'dmms_settings', 'dmms_main_section');
 
+    // Button Style
     add_settings_field('dmms_switch_style', 'Button Style', function(){
        $style = get_option('dmms_switch_style', 'style1');
-       
-    });
+       ?>
+       <select name="dmms_switch_style">
+               <option value="style1" <?php selected($style, 'style1'); ?>>Style 1 (Default)</option>
+               <option value="style2" <?php selected($style, 'style2'); ?>>Style 2 (icon)</option>
+               <option value="style3" <?php selected($style, 'style3'); ?>>Style 3 (icon2)</option>
+       </select>
+       <?php
+    }, 'dmms_settings', 'dmms_main_section');
+
+    // Button Position
+    add_settings_field('dmms_button_position', 'Button Position', function(){
+       $position = get_option('dmms_button_position', 'bottom-right');
+       ?>
+       <select name="dmms_switch_style">
+               <option value="bottom-right" <?php selected($position, 'bottom-right'); ?>>Bottom Right</option>
+               <option value="top-left" <?php selected($position, 'top-left'); ?>>Top Left</option>
+               <option value="top-right" <?php selected($position, 'top-right'); ?>>Top Right</option>
+       </select>
+       <?php
+    }, 'dmms_settings', 'dmms_main_section');
 
 
 }
