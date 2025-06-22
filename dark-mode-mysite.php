@@ -81,11 +81,16 @@ add_action('admin_menu', 'dmms_add_admin_menu');
 function dmms_settings_page() {
     ?>
 
-
-
-
-
-
+     <div class="wrap">
+        <h2>Dark Mode Settings</h2>
+        <form action="options.php" method="post">
+            <?php 
+            settings_fields('dmms_settings_group'); 
+            do_settings_sections('dmms_settings');
+            submit_button('Save Changes');
+             ?>
+        </form>
+     </div>
 
     <?php
 }
