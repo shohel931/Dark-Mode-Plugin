@@ -28,26 +28,6 @@ add_action('wp_enqueue_scripts', 'dmms_enqueue_scripts');
 
 
 
-
-// body class for dark mode
-function dmms_body_class($classes) {
-    $style = get_option('dmms_switch_style', 'style1');
-     $classes[] = 'dms-' . esc_attr($style);
-    return $classes;
-
-}
-add_filter('body_class', 'dmms_body_class');
-
-// toggle button 
-function dmms_toggle_button() {
-    $enabled = get_option('dmms_toggle_button');
-    if ($enabled) {
-        echo '<button id="dmms-toggle-button" class="dmms-toggle-button">Toggle Dark Mode</button>';
-    }
-}
-add_action('wp_footer', 'dmms_toggle_button');
-
-
 // Admin Menu 
 function dmms_add_admin_menu() {
     add_menu_page(
@@ -71,6 +51,27 @@ function dmms_add_admin_menu() {
 }
 add_action('admin_menu', 'dmms_add_admin_menu');
 
+
+
+
+// body class for dark mode
+function dmms_body_class($classes) {
+    $style = get_option('dmms_switch_style', 'style1');
+     $classes[] = 'dms-' . esc_attr($style);
+    return $classes;
+
+}
+add_filter('body_class', 'dmms_body_class');
+
+// toggle button 
+function dmms_toggle_button() {
+    $enabled = get_option('dmms_toggle_button');
+    $position = get_option('dmms_button_position', 'bottom-right');
+    if ($enabled) {
+        echo '<button id="dmms-toggle-button" class="dmms-toggle-button">Dark</button>';
+    }
+}
+add_action('wp_footer', 'dmms_toggle_button');
 
 
 // Settings Page Callback
@@ -142,7 +143,7 @@ function dmms_register_settings(){
     add_settings_field('dmms_button_position', 'Button Position', function(){
        $position = get_option('dmms_button_position', 'bottom-right');
        ?>
-       <select name="dmms_switch_style">
+       <select name="dmms_button_position">
                <option value="bottom-right" <?php selected($position, 'bottom-right'); ?>>Bottom Right</option>
                <option value="top-left" <?php selected($position, 'top-left'); ?>>Top Left</option>
                <option value="top-right" <?php selected($position, 'top-right'); ?>>Top Right</option>
