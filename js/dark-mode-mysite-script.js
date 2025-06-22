@@ -2,6 +2,7 @@ jQuery(document).ready(function($){
   $('#dmms_toggle_button').click(function(){
     $('body').toggleClass('dark-mode');
     $('body').toggleClass('light-mode');
+    $('body').toggleClass('dmms-style1 dmms-style2 dmms-style3');
   });
 });
 
@@ -24,3 +25,5 @@ document.addEventListener('DOMContentLoaded', function(){
     }
   });
 });
+
+
