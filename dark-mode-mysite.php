@@ -68,7 +68,7 @@ function dmms_toggle_button() {
     $enabled = get_option('dmms_toggle_button');
     $position = get_option('dmms_button_position', 'bottom-right');
     if ($enabled) {
-        echo '<button id="dmms-toggle-button" style="border: none;" class="dmms-toggle-button">Dark</button>';
+        echo '<button id="dmms-toggle-button" class="dmms-toggle-button ' . esc_attr($position) . '">Dark</button>';
     }
 }
 add_action('wp_footer', 'dmms_toggle_button');
@@ -154,32 +154,6 @@ function dmms_register_settings(){
 
 }
 add_action('admin_init', 'dmms_register_settings');
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
