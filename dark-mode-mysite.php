@@ -185,25 +185,6 @@ add_action('admin_init', 'dmms_register_settings');
 
 
 
-// // Enqueue Admin Scripts and Styles
-// function dmms_enqueue_admin_scripts($hook) {     
-//     if ($hook != 'toplevel_page_dmms_main_menu' && $hook != 'dark-mode-mysite_page_dmms_social_share' && $hook != 'dark-mode-mysite_page_dmms_upgrade') {
-//         return;
-//     }
-    
-//     wp_enqueue_style('dmms-admin-style', plugin_dir_url(__FILE__) . 'css/admin-style.css');
-//     wp_enqueue_script('dmms-admin-script', plugin_dir_url(__FILE__) . 'js/admin-script.js', array('jquery'), null, true);
-// }   
-// add_action('admin_enqueue_scripts', 'dmms_enqueue_admin_scripts');
-
-
-
-
-
-
-
-
-
 
 
 
