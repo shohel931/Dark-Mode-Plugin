@@ -17,6 +17,10 @@
 
 // Css and Js Load
 function dmms_enqueue_scripts(){
+    // Font Awesome 
+    wp_enqueue_style('dmms-font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css');
+
+
     // Enqueue the dark mode CSS
     wp_enqueue_style('dark-mode-mysite-style', plugin_dir_url(__FILE__) . 'css/dark-mode-mysite-style.css');
 
