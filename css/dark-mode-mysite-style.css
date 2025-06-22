@@ -1,0 +1,27 @@
+body.dark-mode {
+  background-color: #121212;
+  color: #f1f1f1;
+}
+
+.dms-style1 #dark-mode-toggle {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  background: #333;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 30px;
+  cursor: pointer;
+  z-index: 9999;
+}
+
+.dms-style2 #dark-mode-toggle {
+  background: #fff;
+  color: #000;
+  border: 2px solid #ccc;
+}
+
+.dms-style3 #dark-mode-toggle {
+  background: linear-gradient(to right, #ff8a00, #e52e71);
+  color: white;
+}
