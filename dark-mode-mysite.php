@@ -72,7 +72,8 @@ function dmms_toggle_button() {
     $enabled = get_option('dmms_toggle_button');
     $position = get_option('dmms_button_position', 'bottom-right');
     if ($enabled) {
-        echo '<button id="dmms-toggle-button" style="border: none;" class="dmms-toggle-button ' . esc_attr($position) . '">Dark</button>';
+        echo '<button id="dmms-toggle-button" style="border: none;" class="dmms-toggle-button ' . esc_attr($position) . '"><i class="fas fa-sun"></i></button>';
+        // echo '<button id="dmms-toggle-button" style="border: none;" class="dmms-toggle-button ' . esc_attr($position) . '">Dark</button>';
     }
 }
 add_action('wp_footer', 'dmms_toggle_button');
@@ -136,7 +137,7 @@ function dmms_register_settings(){
        $style = get_option('dmms_switch_style', 'style1');
        ?>
        <select name="dmms_switch_style">
-               <option value="style1" <?php selected($style, 'style1'); ?>>Style 1 (Default)</option>
+               <option value="style1" <?php selected($style, 'style1'); ?>><i class="fas fa-moon"></i> (Default)</option>
                <option value="style2" <?php selected($style, 'style2'); ?>>Style 2 (icon)</option>
                <option value="style3" <?php selected($style, 'style3'); ?>>Style 3 (icon2)</option>
        </select>
@@ -163,10 +164,5 @@ add_action('admin_init', 'dmms_register_settings');
 
 
 
-
-
-
-
-
-
 ?>
+

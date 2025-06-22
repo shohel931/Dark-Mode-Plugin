@@ -9,7 +9,7 @@ body.dark-mode{
   background: #333;
   color: #fff;
   padding: 10px 20px;
-  border-radius: 30px;
+  border-radius: 0px;
   cursor: pointer;
   z-index: 9999;
 }
