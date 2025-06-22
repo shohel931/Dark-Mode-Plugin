@@ -91,10 +91,54 @@ function dmms_settings_page() {
              ?>
         </form>
      </div>
-
     <?php
 }
     
+
+
+// Settings Register
+function dmms_segister_settings(){
+    register_setting('dmms_settings_group', 'dmms_enable');
+    add_settings_field('dmms_enable', 'Enable Dark Mode', function() {
+        $checked = get_option('dmms_enable');
+        echo '<input type="checkbox" name="dmms_enable" value="1"' . checked(1, $checked, false) . '> Enable';
+    }, 'dmms_settings', 'dmms_main_section');
+
+
+
+    
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
