@@ -29,21 +29,30 @@ add_action('wp_enqueue_scripts', 'dmms_enqueue_scripts');
 
 
 
+// body class for dark mode
+function dmms_body_class($classes) {
+    $style = get_option('dmms_dark_mode_style', 'default');
+    if ($style === 'dark') {
+        $classes[] = 'dark-mode';
+    } elseif ($style === 'light') {
+        $classes[] = 'light-mode';
+    }
+    return $classes;
+
+}
+add_filter('body_class', 'dmms_body_class');
+
+// toggle button 
+function dmms_toggle_button() {
+    $enabled = get_option('dmms_toggle_button');
+    if ($enabled) {
+        echo '<button id="dmms-toggle-button" class="dmms-toggle-button">Toggle Dark Mode</button>';
+    }
+}
+add_action('wp_footer', 'dmms_toggle_button');
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-// Add Admin Menu
+// Admin Menu 
 function dmms_add_admin_menu() {
     add_menu_page(
         'Dark Mode Mysite',       // Page Title
@@ -54,84 +63,33 @@ function dmms_add_admin_menu() {
         'dashicons-lightbulb',      // Icon
         60                          // Position
     );
+    add_submenu_page(
+        'dmms_main_menu',           // Parent slug
+        'Settings',             // Page title
+        'Settings',             // Menu title
+        'manage_options',           // Capability
+        'dmms_settings',        // Menu slug
+        'dmms_settings_page'    // Callback function    
+    );
 
 }
 add_action('admin_menu', 'dmms_add_admin_menu');
 
 
 
-
-
 // Settings Page Callback
 function dmms_settings_page() {
     ?>
-    <div class="wrap settings-page">
-        <form method="post" action="options.php">
-            <?php
-            settings_fields('dmms_settings_group');
-            do_settings_sections('dmms_main_menu');
-            submit_button();
-            ?>
-        </form>
-        
-    </div>
+
+
+
+
+
+
+
     <?php
 }
-
-
-// Admin Settings Initialization
-function dmms_settings_init() {
-    // Register a new setting for the plugin
-    register_setting('dmms_settings_group', 'dmms_settings');
-
-    // Add a new section to the settings page
-    add_settings_section(
-        'dmms_settings_section',
-        'Dark Mode Settings',
-        'dmms_settings_section_callback',
-        'dmms_main_menu'
-    );
-
-    // Add a new field to the section
-    add_settings_field(
-        'dmms_enable_dark_mode',
-        'Enable Dark Mode',
-        'dmms_enable_dark_mode_render',
-        'dmms_main_menu',
-        'dmms_settings_section'
-    );
-}
-add_action('admin_init', 'dmms_settings_init');
-// Section Callback
-function dmms_settings_section_callback() {
-    echo '<p>Configure the settings for Dark Mode Mysite.</p>';
-}
-
-// Render the field for enabling dark mode
-function dmms_enable_dark_mode_render() {   
-    $options = get_option('dmms_settings');
-    ?>
-    <input type="checkbox" name="dmms_settings[enable_dark_mode]" value="1" <?php checked(isset($options['enable_dark_mode']) ? $options['enable_dark_mode'] : 0, 1); ?> />
-    <label for="dmms_settings[enable_dark_mode]">Enable Dark Mode</label>
-    <?php
-}
-
-
-
-
-
-// Upgrade Page Callback
-function dmms_upgrade_page() {
-    ?>
-    <div class="wrap">
-        <h1>Upgrade to Dark Mode Mysite Pro</h1>
-        <p>Upgrade to the Pro version for more features and support.</p>
-        <a href="https://shohelrana.top/dark-mode-mysite-pro" class="button button-primary">Upgrade Now</a>
-    </div>
-    <?php
-}
-
-
+    
 
 
 
