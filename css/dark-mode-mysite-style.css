@@ -26,3 +26,22 @@ body.dark-mode{
   background-color: #000000;
   color: #eeeeee;
 }
+
+
+/* Toggle Button */
+.dmms-toggle-button.bottom-left{
+  bottom: 20px;
+  right: 20px;
+}
+.dmms-toggle-button.top-left{
+  top: 20px;
+  left: 20px;
+  bottom: auto;
+  right: auto;
+}
+.dmms-toggle-button.top-right{
+  top: 20px;
+  right: 20px;
+  bottom: auto;
+}
+
