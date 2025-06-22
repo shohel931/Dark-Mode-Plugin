@@ -1,35 +1,45 @@
-body.dark-mode{
+body.dark-mode {
   background-color: #121212;
   color: #f1f1f1;
 }
+
+/* Header/Footer এর জন্য */
+body.dark-mode .site-header,
+body.dark-mode header,
+body.dark-mode .header,
+body.dark-mode .site-footer,
+body.dark-mode footer,
+body.dark-mode .footer {
+  background-color: #121212 !important;
+  color: #f1f1f1 !important;
+}
+
+/* Menu link / anchor tag গুলো */
+body.dark-mode a {
+  color: #f1f1f1;
+}
+body.dark-mode a:hover {
+  color: #ffcc00;
+}
+body, header, footer, a {
+  transition: all 0.3s ease;
+}
+
+
 .dmms-toggle-button{
   position: fixed;
   right: 20px;
   bottom: 20px;
   background: #333;
   color: #fff;
-  padding: 10px 20px;
-  border-radius: 0px;
+  padding: 10px 15px;
+  border-radius: 30px;
   cursor: pointer;
   z-index: 9999;
 }
 
-.dmms-style1 {
-  background-color: #fff;
-  color: #000;
-}
-.dmms-style2 {
-  background-color: #1e1e2f;
-  color: #ddd;
-}
-.dmms-style3 {
-  background-color: #000000;
-  color: #eeeeee;
-}
-
-
 /* Toggle Button */
-.dmms-toggle-button.bottom-left{
+.dmms-toggle-button.bottom-right{
   bottom: 20px;
   right: 20px;
 }
@@ -46,6 +56,5 @@ body.dark-mode{
 }
 
 .dmms-toggle-button i {
-  font-size: 18px;
+  font-size: 20px;
 }
-

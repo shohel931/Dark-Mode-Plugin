@@ -27,6 +27,10 @@ function dmms_enqueue_scripts(){
     // Enqueue the dark mode toggle script
     wp_enqueue_script('dark-mode-mysite-script', plugin_dir_url(__FILE__) . 'js/dark-mode-mysite-script.js', array('jquery'), null, true);
 
+    wp_localize_script('dark-mode-mysite-script', 'dmms_data', array(
+    'default_style' => get_option('dmms_dark_mode_style', 'light')
+));
+
 }
 add_action('wp_enqueue_scripts', 'dmms_enqueue_scripts');
 
@@ -35,45 +39,36 @@ add_action('wp_enqueue_scripts', 'dmms_enqueue_scripts');
 // Admin Menu 
 function dmms_add_admin_menu() {
     add_menu_page(
-        'Dark Mode Mysite',       // Page Title
-        'Dark Mode',              // Menu Title
-        'manage_options',           // Capability
-        'dmms_main_menu',            // Menu slug
-        'dmms_settings_page',        // Callback function
-        'dashicons-lightbulb',      // Icon
-        60                          // Position
-    );
-    add_submenu_page(
-        'dmms_main_menu',           // Parent slug
-        'Settings',             // Page title
-        'Settings',             // Menu title
-        'manage_options',           // Capability
-        'dmms_settings',        // Menu slug
-        'dmms_settings_page'    // Callback function    
+        'Dark Mode Mysite',      
+        'Dark Mode',              
+        'manage_options',         
+        'dmms_main_menu',         
+        'dmms_settings_page',     
+        'dashicons-lightbulb',    
+        60                        
     );
 
+    // Settings page 
+    add_submenu_page(
+        'dmms_main_menu',         
+        'Dark Mode Settings',     
+        'Settings',               
+        'manage_options',         
+        'dmms_settings',          
+        'dmms_settings_page'      
+    );
 }
 add_action('admin_menu', 'dmms_add_admin_menu');
 
 
 
 
-// body class for dark mode
-function dmms_body_class($classes) {
-    $style = get_option('dmms_switch_style', 'style1');
-     $classes[] = 'dms-' . esc_attr($style);
-    return $classes;
-
-}
-add_filter('body_class', 'dmms_body_class');
-
 // toggle button 
 function dmms_toggle_button() {
     $enabled = get_option('dmms_toggle_button');
     $position = get_option('dmms_button_position', 'bottom-right');
     if ($enabled) {
-        echo '<button id="dmms-toggle-button" style="border: none;" class="dmms-toggle-button ' . esc_attr($position) . '"><i class="fas fa-sun"></i></button>';
-        // echo '<button id="dmms-toggle-button" style="border: none;" class="dmms-toggle-button ' . esc_attr($position) . '">Dark</button>';
+        echo '<button id="dmms-toggle-button" style="border: none; " class="dmms-toggle-button ' . esc_attr($position) . '"><i class="fas fa-moon"></i></button>';
     }
 }
 add_action('wp_footer', 'dmms_toggle_button');
@@ -100,21 +95,13 @@ function dmms_settings_page() {
 
 // Settings Register
 function dmms_register_settings(){
-    register_setting('dmms_settings_group', 'dmms_enable');
     register_setting('dmms_settings_group', 'dmms_toggle_button');
     register_setting('dmms_settings_group', 'dmms_dark_mode_style');
-    register_setting('dmms_settings_group', 'dmms_switch_style');
     register_setting('dmms_settings_group', 'dmms_button_position');
 
     
     add_settings_section('dmms_main_section', 'Main Settings', null, 'dmms_settings');
 
-    // Enable Dark Mode
-    add_settings_field('dmms_enable',' Enable Dark Mode', function(){
-       $checked = get_option('dmms_enable');
-       echo '<input type="checkbox" name="dmms_enable" value="1"' . checked(1, $checked, false) . '> Enable';
-
-    }, 'dmms_settings', 'dmms_main_section');
 
     // Button Hide Show
     add_settings_field('dmms_toggle_button', 'Show Toggle Button', function() {
@@ -123,26 +110,18 @@ function dmms_register_settings(){
 
     }, 'dmms_settings', 'dmms_main_section');
 
-    // Dark / Light Mode
-    add_settings_field('dmms_dark_mode_style', 'Default Style', function(){
-        $value = get_option('dmms_dark_mode_style', 'light');
-        echo '<select name="dmms_dark_mode_style">
-           <option value="light"' . selected($value, 'light', false) . '>Light</option>
-           <option value="dark"' . selected($value, 'dark', false) . '>Dark</option>
-        </select>';
-    }, 'dmms_settings', 'dmms_main_section');
 
-    // Button Style
-    add_settings_field('dmms_switch_style', 'Button Style', function(){
-       $style = get_option('dmms_switch_style', 'style1');
-       ?>
-       <select name="dmms_switch_style">
-               <option value="style1" <?php selected($style, 'style1'); ?>><i class="fas fa-moon"></i> (Default)</option>
-               <option value="style2" <?php selected($style, 'style2'); ?>>Style 2 (icon)</option>
-               <option value="style3" <?php selected($style, 'style3'); ?>>Style 3 (icon2)</option>
-       </select>
-       <?php
-    }, 'dmms_settings', 'dmms_main_section');
+
+    // Dark / Light Mode
+  add_settings_field('dmms_dark_mode_style', 'Default Style', function() {
+    $value = get_option('dmms_dark_mode_style', 'light');
+    echo '<select name="dmms_dark_mode_style">
+        <option value="light" '.selected($value, 'light', false).'>Light</option>
+        <option value="dark" '.selected($value, 'dark', false).'>Dark</option>
+    </select>';
+}, 'dmms_settings', 'dmms_main_section');
+
+
 
     // Button Position
     add_settings_field('dmms_button_position', 'Button Position', function(){
@@ -161,8 +140,25 @@ function dmms_register_settings(){
 add_action('admin_init', 'dmms_register_settings');
 
 
+// Plugin Redirect
+
+register_activation_hook(__FILE__, 'dmms_plugin_activate');
+function dmms_plugin_activate() {
+    add_option('dmms_do_redirect', true);
+}
+
+add_action('admin_init', 'dmms_plugin_redirect_after_activation');
+function dmms_plugin_redirect_after_activation() {
+    if (get_option('dmms_do_redirect')) {
+        delete_option('dmms_do_redirect');
+
+        if (!isset($_GET['activate-multi'])){
+            wp_redirect(admin_url('admin.php?page=dmms_main_menu'));
+            exit;
+        }
+    }
+}
 
 
 
 ?>
-

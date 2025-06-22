@@ -1,40 +1,23 @@
 jQuery(document).ready(function($){
-  $('#dmms-toggle-button').click(function(){
-    $('body').toggleClass('dark-mode');
-    $('body').toggleClass('light-mode');
-    $('body').toggleClass('dmms-style1 dmms-style2 dmms-style3');
-  });
-});
+  let currentStyle = dmms_data.default_style;
 
+  // Console log for debug
+  console.log('Current Default Style:', currentStyle);
 
-
-document.addEventListener('DOMContentLoaded', function(){
-  const toggleBtn = document.getElementById('#dmms-toggle-button');
-  if (!toggleBtn) return;
-
-  // Load Saved Mode
+  // Load dark mode based on localStorage or default style
   if (localStorage.getItem('dark-mode') === 'enabled') {
-    document.body.classList.add('dark-mode');
+    $('body').addClass('dark-mode');
+  } else if (localStorage.getItem('dark-mode') === null && currentStyle === 'dark') {
+    $('body').addClass('dark-mode');
   }
 
-  // Toggle Mode
-  toggleBtn.addEventListener('click', function(){
-    document.body.classList.toggle('dark-mode');
-
-    if (document.body.classList.contains('dark-mode')) {
+  // Toggle on button click
+  $('#dmms-toggle-button').click(function(){
+    $('body').toggleClass('dark-mode');
+    if ($('body').hasClass('dark-mode')) {
       localStorage.setItem('dark-mode', 'enabled');
     } else {
       localStorage.setItem('dark-mode', 'disabled');
     }
   });
-});
-
-
-document.addEventListener('DOMContentLoaded', function() {
-  const defaultStyle = '<?php echo get_option("dmms_dark_mode_style", "light"); ?> ';
-  if (localStorage.getItem('dark-mode') === null) {
-    if (defaultStyle === 'dark') {
-      document.body.classList.add('dark-mode');
-    }
-  }
 });
