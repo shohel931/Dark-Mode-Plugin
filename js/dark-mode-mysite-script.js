@@ -7,7 +7,7 @@ jQuery(document).ready(function($){
 
 
 document.addEventListener('DOMContentLoaded', function(){
-  const toggleBtn = document.getElementById('dark-mode-toggle');
+  const toggleBtn = document.getElementById('dmms-toggle-button');
   if (!toggleBtn) return;
 
   if (localStorage.getItem('dark-mode') === 'enabled') {

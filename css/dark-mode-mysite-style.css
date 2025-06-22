@@ -2,7 +2,7 @@ body.dark-mode{
   background-color: #121212;
   color: #f1f1f1;
 }
-.dmms-style1 #dark-mode-toggle{
+.dmms-style1 #dmms-toggle-button{
   position: fixed;
   right: 20px;
   bottom: 20px;
@@ -13,12 +13,12 @@ body.dark-mode{
   cursor: pointer;
   z-index: 9999;
 }
-.dmms-style2 #dark-mode-toggle{
+.dmms-style2 #dmms-toggle-button{
   background-color: #fff;
   color: #000;
   border: 2px solid #ccc;
 }
-.dmms-style3 #dark-mode-toggle{
+.dmms-style3 #dmms-toggle-button{
   background: linear-gradient(to right, #ff8a00, #e52e71);
   color: #fff;
 }
