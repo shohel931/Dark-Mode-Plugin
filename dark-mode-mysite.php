@@ -31,12 +31,8 @@ add_action('wp_enqueue_scripts', 'dmms_enqueue_scripts');
 
 // body class for dark mode
 function dmms_body_class($classes) {
-    $style = get_option('dmms_dark_mode_style', 'default');
-    if ($style === 'dark') {
-        $classes[] = 'dark-mode';
-    } elseif ($style === 'light') {
-        $classes[] = 'light-mode';
-    }
+    $style = get_option('dmms_switch_style', 'style1');
+     $classes[] = 'dms-' . esc_attr($style);
     return $classes;
 
 }
@@ -101,6 +97,7 @@ function dmms_register_settings(){
     register_setting('dmms_settings_group', 'dmms_enable');
     register_setting('dmms_settings_group', 'dmms_toggle_button');
     register_setting('dmms_settings_group', 'dmms_dark_mode_style');
+    register_setting('dmms_settings_group', 'dmms_switch_style');
 
     
     add_settings_section('dmms_main_section', 'Main Settings', null, 'dmms_settings');
@@ -124,6 +121,11 @@ function dmms_register_settings(){
            <option value="dark"' . selected($value, 'dark', false) . '>Dark</option>
         </select>';
     }, 'dmms_settings', 'dmms_main_section');
+
+    add_settings_field('dmms_switch_style', 'Button Style', function(){
+       $style = get_option('dmms_switch_style', 'style1');
+       
+    });
 
 
 }
