@@ -103,13 +103,31 @@ function dmms_register_settings(){
     register_setting('dmms_settings_group', 'dmms_dark_mode_style');
 
     
+    add_settings_section('dmms_main_section', 'Main Settings', null, 'dmms_settings');
 
+    add_settings_field('dmms_enable',' Enable Dark Mode', function(){
+       $checked = get_option('dmms_enable');
+       echo '<input type="checkbox" name="dmms_enable" value="1"' . checked(1, $checked, false) . '> Enable';
 
+    }, 'dmms_settings', 'dmms_main_section');
 
+    add_settings_field('dmms_toggle_button', 'Show Toggle Button', function() {
+        $checked = get_option('dmms_toggle_button');
+        echo '<input type="checkbox" name="dmms_toggle_button" value="1"' . checked(1, $checked, false) . '> Show';
+
+    }, 'dmms_settings', 'dmms_main_section');
+
+    add_settings_field('dmms_dark_mode_style', 'Default Style', function() {
+        $value = get_option('dmms_dark_mode_style', 'light');
+        echo '<select name="dmms_dark_mode_style">
+           <option value="light"' . selected($value, 'light', false) . '>Light</option>
+           <option value="dark"' . selected($value, 'dark', false) . '>Dark</option>
+        </select>'
+    }, 'dmms_settings', 'dmms_main_section');
 
 
 }
-add_action('admin_init', 'dmms_segister_settings');
+add_action('admin_init', 'dmms_register_settings');
 
 
 
