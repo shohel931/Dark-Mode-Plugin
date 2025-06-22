@@ -117,12 +117,12 @@ function dmms_register_settings(){
 
     }, 'dmms_settings', 'dmms_main_section');
 
-    add_settings_field('dmms_dark_mode_style', 'Default Style', function() {
+    add_settings_field('dmms_dark_mode_style', 'Default Style', function(){
         $value = get_option('dmms_dark_mode_style', 'light');
         echo '<select name="dmms_dark_mode_style">
            <option value="light"' . selected($value, 'light', false) . '>Light</option>
            <option value="dark"' . selected($value, 'dark', false) . '>Dark</option>
-        </select>'
+        </select>';
     }, 'dmms_settings', 'dmms_main_section');
 
 
